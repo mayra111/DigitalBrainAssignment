@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import './Searchbox.css'; 
+import React, { useState } from "react";
+import axios from "axios";
+import "./Searchbox.css";
 
 const Searchbox = () => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/search?q=${query}`);
+      const response = await axios.get(
+        `https://digitalbrainbackend.onrender.com/api/search?q=${query}`
+      );
       console.log(response.data);
       setResults(response.data.items);
     } catch (error) {
-      console.error('Error fetching search results:', error);
+      console.error("Error fetching search results:", error);
     }
   };
 
@@ -36,14 +38,12 @@ const Searchbox = () => {
         </div>
         <ul className="results-list">
           {results.map((result) => (
-           
-           <li key={result.link} className="result-item">
+            <li key={result.link} className="result-item">
               <a href={result.link} className="result-link">
                 {result.title}
               </a>
               <p>{result.snippet}</p>
             </li>
-
           ))}
         </ul>
       </main>
@@ -52,4 +52,3 @@ const Searchbox = () => {
 };
 
 export default Searchbox;
-
